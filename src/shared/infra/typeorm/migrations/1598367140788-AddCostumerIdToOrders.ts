@@ -11,7 +11,7 @@ export default class AddCostumerIdToOrders1598367140788
     await queryRunner.addColumn(
       'orders',
       new TableColumn({
-        name: 'costumer_id',
+        name: 'customer_id',
         type: 'uuid',
         isNullable: true,
       }),
@@ -20,18 +20,18 @@ export default class AddCostumerIdToOrders1598367140788
     await queryRunner.createForeignKey(
       'orders',
       new TableForeignKey({
-        name: 'OrdersCostumers',
-        columnNames: ['costumer_id'],
+        name: 'OrdersCostumer',
+        columnNames: ['customer_id'],
         referencedColumnNames: ['id'],
-        referencedTableName: 'costumers',
+        referencedTableName: 'customers',
         onDelete: 'SET NULL',
       }),
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropForeignKey('orders', 'OrdersCostumers');
+    await queryRunner.dropForeignKey('orders', 'OrdersCostumer');
 
-    await queryRunner.dropColumn('orders', 'costumer_id');
+    await queryRunner.dropColumn('orders', 'customer_id');
   }
 }
